@@ -1,5 +1,62 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; 
+}
+
+body {
+    color: #000000;
+    height: 100vh; /* Optional: voller Bildschirm */
+    background: radial-gradient(circle, #FF6590 5%, pink 60%, #FFC9D8 100%);
+    background-color: #FFC9D8;
+}
+
+.zettel {
+    position: relative;
+    background-color: #fffde7;
+    border: 1px solid #e0e0e0;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+    width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: 'McLaren', sans-serif;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .kleber {
+    position: absolute;
+    width: 40px;
+    height: 70px;
+    background-color: #f5f5dc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    opacity: 0.9;
+    transform: rotate(-10deg);
+    z-index: 2;
+  }
+  
+  .oben-links {
+    top: -10px;
+    left: -10px;
+  }
+  
+  .oben-rechts {
+    top: -10px;
+    right: -10px;
+    transform: rotate(10deg);
+  }
+  
+.Startbutton {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 30px 30px 30px 30px;
+    background-color: #FF6590;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 60px;
+    cursor: pointer;
+    font-family: 'Luckiest Guy', sans-serif;
 }
