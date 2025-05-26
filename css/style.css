@@ -13,12 +13,13 @@ body {
 
 .zettel {
     position: relative;
+    border-radius: 10px;
     background-color: #fffde7;
     border: 1px solid #e0e0e0;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
     width: 500px;
     margin: 50px auto;
-    padding: 20px;
+    padding: 30px;
     font-family: 'McLaren', sans-serif;
     font-size: 30px;
     text-align: center;
@@ -37,8 +38,8 @@ body {
   }
   
   .unten-links {
-    top: 280px;
-    left: -20px;
+    top: 250px;
+    left: -18px;
     transform: rotate(-30deg);
   }
   
@@ -69,8 +70,8 @@ body {
 .pukinggif {
     position: absolute;
     top: 60%;
-    right: 70%;
+    right: 60%;
     transform: translate(-50%, -50%);
-    width: 300px;
+    width: 400px;
     height: 350px;
 }
