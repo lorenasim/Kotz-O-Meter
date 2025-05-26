@@ -52,8 +52,6 @@ body {
 .Startbutton {
     position: absolute;
     padding: 30px 40px 15px 40px;
-    left: 50%;
-    transform: translateX(-50%);
     display: block;
     justify-content: center; 
     align-items: center;   
@@ -66,6 +64,17 @@ body {
     cursor: pointer;
     font-family: 'Luckiest Guy', sans-serif;
 }
+
+.button-container {
+    display: flex;
+    justify-content: center;  /* horizontal zentriert */
+  }
+
+
+  .Startbutton:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
 
 .pukinggif {
     position: absolute;
