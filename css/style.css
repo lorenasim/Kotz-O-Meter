@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 body {
@@ -22,41 +22,55 @@ body {
     font-family: 'McLaren', sans-serif;
     font-size: 30px;
     text-align: center;
+    background: radial-gradient(circle, #FF6590 5%, pink 60%, #f7f7e8 100%);
   }
   
   .kleber {
     position: absolute;
-    width: 40px;
-    height: 70px;
+    width: 60px;
+    height: 180px;
     background-color: #f5f5dc;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     opacity: 0.9;
-    transform: rotate(-10deg);
+    transform: rotate(-30deg);
     z-index: 2;
   }
   
-  .oben-links {
-    top: -10px;
-    left: -10px;
+  .unten-links {
+    top: 280px;
+    left: -20px;
+    transform: rotate(-30deg);
   }
   
   .oben-rechts {
-    top: -10px;
-    right: -10px;
-    transform: rotate(10deg);
+    top: -50px;
+    right: -30px;
+    transform: rotate(-30deg);
   }
   
 .Startbutton {
     position: absolute;
-    bottom: 20px;
+    padding: 30px 40px 15px 40px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 30px 30px 30px 30px;
-    background-color: #FF6590;
-    color: white;
+    display: block;
+    justify-content: center; 
+    align-items: center;   
+    text-align: center;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 100px;
     font-size: 60px;
     cursor: pointer;
     font-family: 'Luckiest Guy', sans-serif;
+}
+
+.pukinggif {
+    position: absolute;
+    top: 60%;
+    right: 70%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 350px;
 }
