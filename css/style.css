@@ -9,6 +9,7 @@ body {
     height: 100vh; /* Optional: voller Bildschirm */
     background: radial-gradient(circle, #FF6590 5%, pink 60%, #FFC9D8 100%);
     background-color: #FFC9D8;
+    overflow:hidden
 }
 
 .zettel {
@@ -52,8 +53,6 @@ body {
 .Startbutton {
     position: absolute;
     padding: 30px 40px 15px 40px;
-    left: 50%;
-    transform: translateX(-50%);
     display: block;
     justify-content: center; 
     align-items: center;   
@@ -67,6 +66,17 @@ body {
     font-family: 'Luckiest Guy', sans-serif;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;  /* horizontal zentriert */
+  }
+
+
+  .Startbutton:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
+
 .pukinggif {
     position: absolute;
     top: 60%;
@@ -75,3 +85,46 @@ body {
     width: 400px;
     height: 350px;
 }
+
+@media (max-width: 480px) {
+
+    body {
+        overflow: hidden;
+    }
+    .zettel {
+        width: 60%;
+        padding: 20px;
+        font-size: 20px;
+    }
+    
+    .kleber {
+        width: 40px;
+        height: 120px;
+    }
+
+    .unten-links {
+        top: 300px;
+        left: -18px;
+        transform: rotate(-30deg);
+      }
+      
+      .oben-rechts {
+        top: -50px;
+        right: -15px;
+        transform: rotate(-30deg);
+      }
+    
+    .Startbutton {
+        font-size: 40px;
+        padding: 20px 30px;
+    }
+    
+    .pukinggif {
+        width: 100px;
+        height: auto;
+        top: 100%;
+        right: 60%;
+    }
+
+}
+
