@@ -18,23 +18,25 @@ const categoryScore = {
     drink: 2.5
 };
 
-// --- Kotzlevel startet ganz links
-let kotzLevel = -10;
+// --- Kotzlevel initialisieren
+let kotzLevel = parseFloat(localStorage.getItem("kotzLevel")) || -10;
 
 // --- Bild-Element erstellen
 const previewImg = document.createElement("img");
 previewImg.id = "image-preview";
-previewImg.style.position = "absolute";
-previewImg.style.width = "150px";
-previewImg.style.height = "150px";
-previewImg.style.objectFit = "cover";
-previewImg.style.borderRadius = "15px";
-previewImg.style.boxShadow = "0 4px 10px rgba(0,0,0,0.4)";
-previewImg.style.display = "none";
-previewImg.style.zIndex = "1000";
+Object.assign(previewImg.style, {
+    position: "absolute",
+    width: "150px",
+    height: "150px",
+    objectFit: "cover",
+    borderRadius: "15px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.4)",
+    display: "none",
+    zIndex: "1000"
+});
 document.body.appendChild(previewImg);
 
-// --- Warn-Popup erstellen (falls nicht schon im HTML)
+// --- Warn-Popup erstellen (falls nicht im HTML)
 let popup = document.getElementById("warning-popup");
 if (!popup) {
     popup = document.createElement("div");
@@ -42,19 +44,19 @@ if (!popup) {
     popup.innerHTML = "<p>Du solltest besser nach Hause gehen und ein Aspirin zu dir nehmen.</p>";
     document.body.appendChild(popup);
 }
-
-// Popup-Styling via JS (nur wenn kein CSS da ist)
-popup.style.position = "fixed";
-popup.style.bottom = "30px";
-popup.style.right = "30px";
-popup.style.background = "rgba(255, 0, 0, 0.9)";
-popup.style.color = "white";
-popup.style.padding = "20px 30px";
-popup.style.borderRadius = "15px";
-popup.style.fontSize = "24px";
-popup.style.boxShadow = "0 4px 10px rgba(0,0,0,0.5)";
-popup.style.zIndex = "2000";
-popup.style.display = "none";
+Object.assign(popup.style, {
+    position: "fixed",
+    bottom: "30px",
+    right: "30px",
+    background: "rgba(255, 0, 0, 0.9)",
+    color: "white",
+    padding: "20px 30px",
+    borderRadius: "15px",
+    fontSize: "24px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.5)",
+    zIndex: "2000",
+    display: "none"
+});
 
 // --- Marker aktualisieren
 function updateBarometer() {
@@ -65,7 +67,6 @@ function updateBarometer() {
     const newLeft = (percent / 100) * (barometerWidth - marker.offsetWidth);
     marker.style.left = `${newLeft}px`;
 
-    // Wenn Kotzlevel zu hoch -> Popup zeigen
     if (percent >= 90) {
         popup.style.display = "block";
     } else {
@@ -76,13 +77,22 @@ function updateBarometer() {
 let isLoading = false;
 let hideTimeout = null;
 
-// --- Bubble-Verhalten
+// --- Kreiswerte aus localStorage laden
+const savedValues = JSON.parse(localStorage.getItem("circleValues") || "{}");
 document.querySelectorAll(".circle").forEach(circle => {
+    const category = Array.from(circle.classList).find(cls => categoryScore[cls]);
+    const valueElement = circle.querySelector(".value");
+    if (category && savedValues[category] !== undefined) {
+        valueElement.textContent = savedValues[category];
+    } else {
+        valueElement.textContent = "0";
+    }
+
+    // --- Bildvorschau bei Hover
     circle.addEventListener("mouseenter", async () => {
         if (isLoading) return;
 
-        const category = Array.from(circle.classList).find(cls => categoryToApi[cls]);
-        if (!category) return;
+        if (!categoryToApi[category]) return;
 
         clearTimeout(hideTimeout);
         const apiURL = categoryToApi[category];
@@ -101,22 +111,13 @@ document.querySelectorAll(".circle").forEach(circle => {
                 const randomImg = images[Math.floor(Math.random() * images.length)];
                 const newSrc = randomImg.urls.small;
 
-                if (previewImg.src !== newSrc) {
-                    previewImg.onload = () => {
-                        previewImg.style.left = `${left}px`;
-                        previewImg.style.top = `${top}px`;
-                        previewImg.style.display = "block";
-                        isLoading = false;
-                    };
-                    previewImg.src = newSrc;
-                } else {
+                previewImg.onload = () => {
                     previewImg.style.left = `${left}px`;
                     previewImg.style.top = `${top}px`;
                     previewImg.style.display = "block";
                     isLoading = false;
-                }
-            } else {
-                isLoading = false;
+                };
+                previewImg.src = newSrc;
             }
         } catch (err) {
             console.error("Fehler beim Laden des Bildes:", err);
@@ -124,33 +125,44 @@ document.querySelectorAll(".circle").forEach(circle => {
         }
     });
 
+    // --- Bildvorschau verstecken
     circle.addEventListener("mouseleave", () => {
         hideTimeout = setTimeout(() => {
             previewImg.style.display = "none";
         }, 100);
     });
 
+    // --- Klick-Logik
     circle.addEventListener("click", () => {
-        const valueElement = circle.querySelector(".value");
-        const currentValue = parseInt(valueElement.textContent);
-        valueElement.textContent = currentValue + 1;
+        let currentValue = parseInt(valueElement.textContent);
+        currentValue++;
+        valueElement.textContent = currentValue;
 
-        const category = Array.from(circle.classList).find(cls => categoryScore[cls]);
         if (category) {
             kotzLevel += categoryScore[category];
             updateBarometer();
+
+            // --- localStorage speichern
+            savedValues[category] = currentValue;
+            localStorage.setItem("circleValues", JSON.stringify(savedValues));
+            localStorage.setItem("kotzLevel", kotzLevel);
         }
     });
 });
 
-// --- RESET-Button Funktion
+// --- RESET-Button
 document.querySelector(".Resetbutton").addEventListener("click", () => {
     document.querySelectorAll(".circle .value").forEach(el => {
         el.textContent = "0";
     });
     kotzLevel = -10;
     updateBarometer();
+    localStorage.removeItem("circleValues");
+    localStorage.removeItem("kotzLevel");
 });
 
-// --- Beim Laden initialisieren
-updateBarometer();
+// --- Initialer Balkenstand
+window.onload = () => {
+    updateBarometer();
+};
+

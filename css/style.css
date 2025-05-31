@@ -115,15 +115,18 @@ body {
       }
     
     .Startbutton {
-        font-size: 40px;
-        padding: 20px 30px;
+        font-size: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
     
     .pukinggif {
-        width: 100px;
         height: auto;
-        top: 100%;
+        top: 70%;
         right: 60%;
+
     }
 
 }
