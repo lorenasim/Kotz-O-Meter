@@ -163,6 +163,9 @@ document.querySelector(".Resetbutton").addEventListener("click", () => {
 
 // --- Initialer Balkenstand
 window.onload = () => {
-    updateBarometer();
+    // Verzögert, damit DOM & Layout vollständig gerendert sind
+    requestAnimationFrame(() => {
+        updateBarometer();
+    });
 };
 
