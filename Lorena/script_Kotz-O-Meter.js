@@ -46,16 +46,19 @@ if (!popup) {
 }
 Object.assign(popup.style, {
     position: "fixed",
-    bottom: "30px",
-    right: "30px",
-    background: "rgba(255, 0, 0, 0.9)",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    background: "#e53935",
     color: "white",
-    padding: "20px 30px",
-    borderRadius: "15px",
-    fontSize: "24px",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.5)",
-    zIndex: "2000",
-    display: "none"
+    padding: "40px",
+    borderRadius: "20px",
+    fontSize: "32px",
+    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
+    zIndex: "9999",
+    display: "none",
+    textAlign: "center",
+    maxWidth: "80%"
 });
 
 // --- Marker aktualisieren
@@ -68,9 +71,25 @@ function updateBarometer() {
     marker.style.left = `${newLeft}px`;
 
     if (percent >= 90) {
+        popup.classList.remove("hide");
+        popup.classList.add("show");
         popup.style.display = "block";
+
+        // Nach 3 Sekunden wieder ausblenden
+        setTimeout(() => {
+            popup.classList.remove("show");
+            popup.classList.add("hide");
+
+            setTimeout(() => {
+                popup.style.display = "none";
+            }, 400); // Muss zu fadeOut Dauer passen
+        }, 3000);
     } else {
-        popup.style.display = "none";
+        popup.classList.remove("show");
+        popup.classList.add("hide");
+        setTimeout(() => {
+            popup.style.display = "none";
+        }, 400);
     }
 }
 
@@ -163,9 +182,7 @@ document.querySelector(".Resetbutton").addEventListener("click", () => {
 
 // --- Initialer Balkenstand
 window.onload = () => {
-    // Verzögert, damit DOM & Layout vollständig gerendert sind
     requestAnimationFrame(() => {
         updateBarometer();
     });
 };
-
