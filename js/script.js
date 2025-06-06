@@ -170,5 +170,40 @@ document.addEventListener("DOMContentLoaded", () => {
   updateBarometer();
 });
 
+const geburtsjahrInput = document.querySelector('#geburtsjahr input');
 
-  
+if (geburtsjahrInput) {
+
+  geburtsjahrInput.value = localStorage.getItem('geburtsjahr') || '';
+
+  geburtsjahrInput.addEventListener('input', () => {
+    localStorage.setItem('geburtsjahr', geburtsjahrInput.value);
+  });
+}
+
+
+const gewichtInput = document.querySelector('#gewicht input');
+
+if (gewichtInput) {
+  gewichtInput.value = localStorage.getItem('gewicht') || '';
+
+  gewichtInput.addEventListener('input', () => {
+    localStorage.setItem('gewicht', gewichtInput.value);
+  });
+}
+
+const drinkRadios = document.querySelectorAll('#trinken input[name="drink"]');
+const gespeichertesTrinken = localStorage.getItem('trinkverhalten');
+
+if (gespeichertesTrinken) {
+  const gespeichertesRadio = document.querySelector(`#trinken input[value="${gespeichertesTrinken}"]`);
+  if (gespeichertesRadio) gespeichertesRadio.checked = true;
+}
+
+drinkRadios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    if (radio.checked) {
+      localStorage.setItem('trinkverhalten', radio.value);
+    }
+  });
+});
