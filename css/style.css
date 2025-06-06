@@ -87,10 +87,7 @@ body {
 }
 
 
-.button-container {
-    display: flex;
-    justify-content: center;
-  }
+
   
   .Resetbutton {
     position: absolute;
@@ -284,7 +281,11 @@ body {
         font-size: 24px;
         padding: 20px;
     }
+  }
   
+
+@media (max-width: 480px) {
+
     .zettel {
         width: 60%;
         padding: 20px;
@@ -325,3 +326,154 @@ body {
 
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* oder center, je nach gewünschter Position */
+  margin-top: 0px; /* ggf. Abstand zum Header anpassen */
+  padding-top: 20px;
+  font-family: 'Luckiest Guy', sans-serif;
+}
+
+body {
+    color: #000000;
+    height: 100vh; /* Optional: voller Bildschirm */
+    background: radial-gradient(circle, #FF6590 5%, pink 60%, #FFC9D8 100%);
+    background-color: #FFC9D8;
+  }
+
+  .container {
+
+  background-color: #004d46;
+  color: white;
+  padding: 40px;
+  border-radius: 50px;
+  text-align: center;
+  align-items: center;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+}
+
+.container h1 {
+  font-size: 2rem;
+  -webkit-text-stroke: 0.25px black;
+  text-stroke: 2px black;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+input[type="text"] {
+  font-size: 2rem;
+  text-align: center;
+  padding: 15px 20px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  background: white;
+  color: black;
+  width: 70%;
+  margin-bottom: 30px;
+  font-family: 'Luckiest Guy', sans-serif;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+button.zurück,
+button.eingabe {
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+button.eingabe:hover,
+button.zurück:hover {
+  transform: scale(1.1);
+}
+
+
+
+button.zurück {
+  background-color: #e04f4f;
+  color: white;
+}
+
+button.eingabe {
+  background-color: #fdd8e5;
+  color: #ffffff;
+}
+
+.drink-options {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+
+
+.drink-options label {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: black;
+  transition: background 0.2s, color 0.2s;
+  min-width: 100px; /* optional für gleich breite Buttons */
+}
+
+.drink-options input[type="radio"] {
+  display: none;
+}
+
+/* Grunddesign für Labels (Buttons) */
+.drink-options label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 15px 0px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: black;
+  transition: background 0.3s, color 0.3s;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Hover: gesamtes Label wird pink */
+.drink-options label:hover {
+  background: #ff99c8;
+  color: black;
+}
+
+/* Checked: Wenn zugehöriges Input ausgewählt ist, wird das Label pink */
+input[type="radio"]:checked + label {
+  background: #ff99c8;
+  color: black;
+  font-weight: bold;
+}
