@@ -315,13 +315,16 @@ body {
         justify-content: center;
         align-items: center;
         text-align: center;
+        z-index: 10;
     }
     
     .pukinggif {
-        height: auto;
-        top: 70%;
-        right: 60%;
-
+        position: relative;
+        display: block;
+        margin: 20px auto;
+        width: 100px;         /* gewünschte Breite */
+        height: 100px;         /* automatische Höhe, um Seitenverhältnis zu erhalten */
+        z-index: 1;
     }
 
 }
@@ -376,7 +379,7 @@ input[type="text"] {
   font-size: 2rem;
   text-align: center;
   padding: 15px 20px;
-  border-radius: 30px;
+  border-radius: 50px;
   border: none;
   outline: none;
   background: white;
@@ -384,6 +387,7 @@ input[type="text"] {
   width: 70%;
   margin-bottom: 30px;
   font-family: 'Luckiest Guy', sans-serif;
+  line-height: 1.2; /* sorgt für mehr vertikalen Platz */
 }
 
 .buttons {
@@ -449,7 +453,7 @@ button.eingabe {
   display: none;
 }
 
-/* Grunddesign für Labels (Buttons) */
+
 .drink-options label {
   display: flex;
   align-items: center;
@@ -465,13 +469,13 @@ button.eingabe {
   text-align: center;
 }
 
-/* Hover: gesamtes Label wird pink */
+
 .drink-options label:hover {
   background: #ff99c8;
   color: black;
 }
 
-/* Checked: Wenn zugehöriges Input ausgewählt ist, wird das Label pink */
+
 input[type="radio"]:checked + label {
   background: #ff99c8;
   color: black;
