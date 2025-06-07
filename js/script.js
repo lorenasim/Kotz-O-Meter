@@ -15,16 +15,47 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("aktuelleSeite", aktuelleSeite);
 
     document.querySelector("header svg")?.addEventListener("click", () => {
-        zeigeSeite(0); // Seite 0 = Startseite
-        localStorage.setItem("aktuelleSeite", 0); // optional: speichern
+        zeigeSeite(0);
+        localStorage.setItem("aktuelleSeite", 0);
       });
-    
   }
 
   document.getElementById("startButton")?.addEventListener("click", () => zeigeSeite(1));
-  document.querySelectorAll(".weiter, .eingabe").forEach(btn => btn.addEventListener("click", () => {
-    if (aktuelleSeite < seitenIds.length - 1) zeigeSeite(aktuelleSeite + 1);
-  }));
+
+  document.querySelectorAll(".eingabe").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const currentSection = seitenIds[aktuelleSeite];
+
+      if (currentSection === "geburtsjahr") {
+        const input = document.querySelector('#geburtsjahr input');
+        if (!input.value.match(/^\d{4}$/)) {
+          alert("Bitte ein gültiges Geburtsjahr eingeben.");
+          return;
+        }
+      }
+
+      if (currentSection === "gewicht") {
+        const input = document.querySelector('#gewicht input');
+        if (!input.value.match(/^\d{2,3}$/)) {
+          alert("Bitte dein Gewicht (in KG) eingeben.");
+          return;
+        }
+      }
+
+      if (currentSection === "trinken") {
+        const checked = document.querySelector('#trinken input[name="drink"]:checked');
+        if (!checked) {
+          alert("Bitte gib dein Trinkverhalten an.");
+          return;
+        }
+      }
+
+      if (aktuelleSeite < seitenIds.length - 1) {
+        zeigeSeite(aktuelleSeite + 1);
+      }
+    });
+  });
+
   document.querySelectorAll(".zurück").forEach(btn => btn.addEventListener("click", () => {
     if (aktuelleSeite > 0) zeigeSeite(aktuelleSeite - 1);
   }));
@@ -65,22 +96,46 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!popup) {
     popup = document.createElement("div");
     popup.id = "warning-popup";
-    popup.textContent = "Du solltest besser nach Hause gehen und ein Aspirin zu dir nehmen.";
+    popup.textContent = "🤮 Du solltest besser nach Hause gehen und ein Aspirin nehmen.";
     document.body.appendChild(popup);
   }
+
   Object.assign(popup.style, {
     position: "fixed",
-    bottom: "30px",
-    right: "30px",
-    background: "rgba(255, 0, 0, 0.9)",
+    top: "40%",
+    left: "50%",
+    transform: "translate(-50%, 20px)",
+    background: "#e53935",
     color: "white",
-    padding: "20px 30px",
-    borderRadius: "15px",
-    fontSize: "24px",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.5)",
+    padding: "25px 50px",
+    borderRadius: "25px",
+    fontSize: "35px",
+    fontFamily: "'Luckiest Guy', sans-serif",
+    textAlign: "center",
+    textShadow: "-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000",
+    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3)",
     zIndex: "2000",
-    display: "none"
+    display: "none",
+    maxWidth: "90%",
+    opacity: "0",
+    transition: "opacity 0.4s ease, transform 0.4s ease"
   });
+
+  function zeigeWarnung() {
+  // Nur auf der Kotz-O-Meter-Seite anzeigen
+  if (seitenIds[aktuelleSeite] !== "kotzometer") return;
+
+  popup.style.display = "block";
+  requestAnimationFrame(() => {
+    popup.style.opacity = "1";
+    popup.style.transform = "translate(-50%, 0)";
+  });
+  setTimeout(() => {
+    popup.style.opacity = "0";
+    popup.style.transform = "translate(-50%, 20px)";
+    setTimeout(() => popup.style.display = "none", 400);
+  }, 5000);
+}
 
   function updateBarometer() {
     const marker = document.querySelector(".marker");
@@ -92,7 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const newLeft = (percent / 100) * (bar.clientWidth - marker.offsetWidth);
     marker.style.left = `${newLeft}px`;
 
-    popup.style.display = percent >= 90 ? "block" : "none";
+    if (newLeft >= (bar.clientWidth - marker.offsetWidth - 5)) {
+      zeigeWarnung();
+    }
   }
 
   const savedValues = JSON.parse(localStorage.getItem("circleValues") || "{}");
@@ -170,40 +227,35 @@ document.addEventListener("DOMContentLoaded", () => {
   updateBarometer();
 });
 
-const geburtsjahrInput = document.querySelector('#geburtsjahr input');
-
-if (geburtsjahrInput) {
-
-  geburtsjahrInput.value = localStorage.getItem('geburtsjahr') || '';
-
-  geburtsjahrInput.addEventListener('input', () => {
-    localStorage.setItem('geburtsjahr', geburtsjahrInput.value);
-  });
-}
-
-
-const gewichtInput = document.querySelector('#gewicht input');
-
-if (gewichtInput) {
-  gewichtInput.value = localStorage.getItem('gewicht') || '';
-
-  gewichtInput.addEventListener('input', () => {
-    localStorage.setItem('gewicht', gewichtInput.value);
-  });
-}
-
-const drinkRadios = document.querySelectorAll('#trinken input[name="drink"]');
-const gespeichertesTrinken = localStorage.getItem('trinkverhalten');
-
-if (gespeichertesTrinken) {
-  const gespeichertesRadio = document.querySelector(`#trinken input[value="${gespeichertesTrinken}"]`);
-  if (gespeichertesRadio) gespeichertesRadio.checked = true;
-}
-
-drinkRadios.forEach(radio => {
-  radio.addEventListener('change', () => {
-    if (radio.checked) {
-      localStorage.setItem('trinkverhalten', radio.value);
+/* Responsive Styles */
+const style = document.createElement('style');
+style.textContent = `
+  @media (max-width: 600px) {
+    .container {
+      width: 90% !important;
+      padding: 20px !important;
     }
-  });
-});
+    .container h1 {
+      font-size: 1.5rem;
+    }
+    input[type="text"] {
+      font-size: 1.5rem;
+      padding: 10px;
+    }
+    .buttons {
+      gap: 10px;
+    }
+    button.zurück,
+    button.eingabe {
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+    }
+    .drink-options label {
+      font-size: 1rem;
+      padding: 10px 14px;
+      min-width: auto;
+    }
+  }
+`;
+document.head.appendChild(style);
