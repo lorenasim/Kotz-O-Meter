@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=McLaren&display=swap" rel="stylesheet">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kotz-O-Meter</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=McLaren&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-<header>
+  <header>
     <svg width="100%" height="150px" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+            font-family="'Luckiest Guy', sans-serif" font-size="95"
+            fill="white" stroke="white" stroke-width="12">KOTZ-O-METER</text>
+      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+            font-family="'Luckiest Guy', sans-serif" font-size="95"
+            fill="black">KOTZ-O-METER</text>
+    </svg>
+  </header>
 
-        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
-              font-family="'Luckiest Guy', sans-serif" font-size="95"
-              fill="white" stroke="white" stroke-width="12">
-          KOTZ-O-METER
-        </text>
-   
-        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
-              font-family="'Luckiest Guy', sans-serif" font-size="95"
-              fill="black">
-          KOTZ-O-METER
-        </text>
-      </svg>
-</header>
-
-<main> 
-    <div class="zettel">
+  <main>
+    <!-- Startseite -->
+    <div class="seite" id="startseite">
+      <div class="zettel">
         <div class="kleber unten-links"></div>
         <div class="kleber oben-rechts"></div>
         <p>
@@ -38,16 +35,76 @@
           Teste, wie standfest du bist.
         </p>
       </div>
-
       <div class="button-container">
-        <button class="Startbutton">START</button>
+        <button class="Startbutton" id="startButton">START</button>
       </div>
-
-    <div class="pukinggif">
-        <img src="img/puking animation.gif" alt="pukinggif">
+      <div class="pukinggif">
+        <img src="img/puking animation.gif" alt="pukinggif" />
+      </div>
     </div>
-</main>
 
-    <script src="js/script.js" type="module"></script>
+    <!-- Geburtsjahr -->
+    <div class="seite container hidden" id="geburtsjahr">
+      <h1>Was ist<br />dein Geburtsjahr?</h1>
+      <input type="text" placeholder="JJJJ" maxlength="4" />
+      <div class="buttons">
+        <button class="zurück"><i class="fas fa-arrow-left"></i></button>
+        <button class="eingabe"><i class="fas fa-check"></i></button>
+      </div>
+    </div>
+
+    <!-- Gewicht -->
+    <div class="seite container hidden" id="gewicht">
+      <h1>Wie viel wiegst<br />du ungefähr?</h1>
+      <input type="text" placeholder="KG" maxlength="3" />
+      <div class="buttons">
+        <button class="zurück"><i class="fas fa-arrow-left"></i></button>
+        <button class="eingabe"><i class="fas fa-check"></i></button>
+      </div>
+    </div>
+
+    <!-- Trinkverhalten -->
+    <div class="seite container hidden" id="trinken">
+      <h1>Wie oft<br>trinkst du?</h1>
+      <form class="drink-options">
+        <input type="radio" name="drink" id="selten" value="selten">
+        <label for="selten">Selten</label>
+
+        <input type="radio" name="drink" id="abundzu" value="abundzu">
+        <label for="abundzu">Ab und zu</label>
+
+        <input type="radio" name="drink" id="oft" value="oft">
+        <label for="oft">Oft</label>
+      </form>
+      <div class="buttons">
+        <button class="zurück"><i class="fas fa-arrow-left"></i></button>
+        <button class="eingabe"><i class="fas fa-check"></i></button>
+      </div>
+    </div>
+
+    <!-- Kotz-O-Meter -->
+    <div class="seite hidden" id="kotzometer">
+      <div class="barometer">
+        <div class="marker"></div>
+      </div>
+      <div class="button-container">
+        <button class="Resetbutton" id="resetButton">RESET</button>
+      </div>
+      <div class="circle-row">
+        <div class="circle food"><span class="label">FOOD</span><span class="value">0</span></div>
+        <div class="circle drink"><span class="label">DRINK</span><span class="value">0</span></div>
+        <div class="circle beer"><span class="label">BEER</span><span class="value">0</span></div>
+        <div class="circle water"><span class="label">WATER</span><span class="value">0</span></div>
+        <div class="circle wine"><span class="label">WINE</span><span class="value">0</span></div>
+      </div>
+      <div id="image-preview-container">
+        <img id="image-preview" src="" alt="Preview" />
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript -->
+  <script src="js/script.js" type="module"></script>
+
 </body>
 </html>
