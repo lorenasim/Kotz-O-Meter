@@ -227,35 +227,3 @@ document.addEventListener("DOMContentLoaded", () => {
   updateBarometer();
 });
 
-/* Responsive Styles */
-const style = document.createElement('style');
-style.textContent = `
-  @media (max-width: 600px) {
-    .container {
-      width: 90% !important;
-      padding: 20px !important;
-    }
-    .container h1 {
-      font-size: 1.5rem;
-    }
-    input[type="text"] {
-      font-size: 1.5rem;
-      padding: 10px;
-    }
-    .buttons {
-      gap: 10px;
-    }
-    button.zurück,
-    button.eingabe {
-      width: 50px;
-      height: 50px;
-      font-size: 1.2rem;
-    }
-    .drink-options label {
-      font-size: 1rem;
-      padding: 10px 14px;
-      min-width: auto;
-    }
-  }
-`;
-document.head.appendChild(style);
