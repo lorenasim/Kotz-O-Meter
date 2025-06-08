@@ -268,8 +268,7 @@ body {
         width: 80%;
         height: 90px;
         border-width: 6px;
-        margin-top: 10px; 
-        margin-bottom: 10px; 
+        margin-top: 0px !important;     /* nach oben schieben */
 
     }
   
