@@ -268,8 +268,8 @@ body {
         width: 80%;
         height: 90px;
         border-width: 6px;
-        padding-top: 20px;
-        padding-bottom: 20px;
+        margin-top: 10px; 
+        margin-bottom: 10px; 
 
     }
   
