@@ -9,7 +9,6 @@ body {
     height: 100vh; /* Optional: voller Bildschirm */
     background: radial-gradient(circle, #FF6590 5%, pink 60%, #FFC9D8 100%);
     background-color: #FFC9D8;
-    overflow:hidden
 }
 
 .zettel {
@@ -236,7 +235,6 @@ body {
   
   @media (max-width: 480px) {
     body {
-        overflow: hidden;
         padding: 10px;
     }
   
