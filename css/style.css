@@ -297,7 +297,6 @@ body {
 
     .unten-links {
         bottom: -30px;
-        left: -8px;
         top: auto;
         transform: rotate(-30deg);
       }
