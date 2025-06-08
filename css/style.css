@@ -67,7 +67,7 @@ body {
 
 .button-container {
     display: flex;
-    justify-content: center;  /* horizontal zentriert */
+    justify-content: center; 
   }
 
 
@@ -246,7 +246,6 @@ body {
   
     .circle .value {
         font-size: 16px;
-        padding: 4px;
         left: 60%;
     }
   
@@ -320,8 +319,8 @@ body {
         position: relative;
         display: block;
         margin: 20px auto;
-        width: 100px;         /* gewünschte Breite */
-        height: 100px;         /* automatische Höhe, um Seitenverhältnis zu erhalten */
+        width: 100px;        
+        height: 100px;         
         z-index: 1;
     }
 
