@@ -287,6 +287,10 @@ body {
 
 @media (max-width: 480px) {
 
+    .circle-row {
+        margin-top: 10px;
+      }
+
     .zettel {
         width: 60%;
         padding: 20px;
