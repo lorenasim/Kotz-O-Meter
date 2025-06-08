@@ -246,6 +246,7 @@ body {
   
     .circle .value {
         font-size: 16px;
+        padding: 0px;
         left: 60%;
     }
   
